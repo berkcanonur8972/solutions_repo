@@ -109,6 +109,8 @@ plt.title('Poincaré Section')
 plt.grid(True)
 plt.show()
 ```
+![alt text](image-3.png)
+
 
 ---
 
