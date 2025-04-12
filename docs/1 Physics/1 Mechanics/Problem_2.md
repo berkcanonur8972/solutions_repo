@@ -30,9 +30,27 @@ From this linearized equation, approximate solutions can be derived. Resonance o
 
 ### 2. Analysis of Dynamics
 
-- **Damping Coefficient (\( \gamma \))**: Determines the rate at which energy is lost.
-- **Driving Amplitude (\( A \))**: Influences the energy supplied to the system.
-- **Driving Frequency (\( \omega \))**: Key parameter affecting resonance and chaotic behavior.
+- **Damping Coefficient 
+
+$$ 
+\gamma 
+$$
+
+**: Determines the rate at which energy is lost.
+- **Driving Amplitude 
+
+$$ 
+A 
+$$
+
+**: Influences the energy supplied to the system.
+- **Driving Frequency 
+
+$$ 
+\omega 
+$$
+
+**: Key parameter affecting resonance and chaotic behavior.
 
 The transition from regular to chaotic motion can be visualized using phase portraits, Poincaré sections, and bifurcation diagrams.
 
@@ -109,7 +127,7 @@ plt.title('Poincaré Section')
 plt.grid(True)
 plt.show()
 ```
-![alt text](image-3.png)
+![alt text](image-4.png)
 
 
 ---
