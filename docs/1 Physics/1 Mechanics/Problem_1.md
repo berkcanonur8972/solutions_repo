@@ -290,6 +290,10 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+![alt text](image.png)
+
+
+
 ## 📈 Graphical Insights
 
 Understanding the graph of **Projectile Range vs. Launch Angle** reveals important physical behaviors of motion.
@@ -501,6 +505,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+![alt text](image-1.png)
 
 [visit website](https://colab.research.google.com/drive/12e4SEoh-Xdq62-cyfThP4y7GKXT5J23y#scrollTo=kOK303wNHwKm&uniqifier=4)
 
