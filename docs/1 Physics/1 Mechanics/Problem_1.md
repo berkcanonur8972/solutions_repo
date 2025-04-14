@@ -385,10 +385,8 @@ axs[1].set_title("(b) Projectile motion with 50 m/s at different angles")
 
 plt.tight_layout()
 plt.show()
-
 ```
 
-![alt text](image-32.png)
 
 
 
