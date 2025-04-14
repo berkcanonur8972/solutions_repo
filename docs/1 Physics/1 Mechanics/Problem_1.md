@@ -92,7 +92,7 @@ projectile_range(v0, g)
 This analysis demonstrates the relationship between launch angle and range, emphasizing its significance in various real-world applications. Future studies can incorporate drag forces for more realistic modeling.
 
 
-![alt text](image-10.png)
+
 
 
 # 🚀 Why is the Maximum Range Achieved at a 45° Angle?
@@ -187,6 +187,7 @@ v0 = 20  # Initial velocity (m/s)
 g = 9.81 # Gravitational acceleration (m/s²)
 projectile_range(v0, g)
 ```
+![alt text](image-30.png)
 
 ### 📈 What Will the Graph Show?
 
@@ -257,7 +258,7 @@ plt.grid()
 plt.show()
 
 ```
-
+![alt text](image-31.png)
 
 ### Differential Equations of Bullet Motion
 
@@ -387,7 +388,7 @@ plt.show()
 
 ```
 
-![alt text](image-12.png)
+![alt text](image-32.png)
 
 
 
