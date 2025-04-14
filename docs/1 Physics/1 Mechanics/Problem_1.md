@@ -266,32 +266,27 @@ The following Python script simulates the relationship between **launch angle** 
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- Parameters ---
-v0 = 30            # Initial velocity in m/s
-g = 9.81           # Gravitational acceleration in m/s²
-angles_deg = np.linspace(0, 90, 500)  # Angle values from 0° to 90°
-angles_rad = np.radians(angles_deg)  # Convert degrees to radians
+def projectile_range(v0, g):
+    angles = np.linspace(0, 90, 100)  # Angles in degrees
+    angles_rad = np.radians(angles)   # Convert to radians
+    ranges = (v0**2 * np.sin(2 * angles_rad)) / g
 
-# --- Range Calculation ---
-# R = (v0² * sin(2θ)) / g
-ranges = (v0**2 * np.sin(2 * angles_rad)) / g
+    plt.figure(figsize=(8,5))
+    plt.plot(angles, ranges, label=f'v0 = {v0} m/s')
+    plt.xlabel('Launch Angle (degrees)')
+    plt.ylabel('Range (m)')
+    plt.title('Projectile Range vs. Launch Angle')
+    plt.legend()
+    plt.grid()
+    plt.show()
 
-# --- Plotting ---
-plt.figure(figsize=(10, 6))
-plt.plot(angles_deg, ranges, color='dodgerblue', linewidth=2, label=f'v₀ = {v0} m/s, g = {g} m/s²')
-plt.axvline(x=45, color='gray', linestyle='--', label='Max Range at 45°')
-
-# --- Labels and Title ---
-plt.title('Projectile Range vs Angle of Projection', fontsize=14)
-plt.xlabel('Angle (degrees)', fontsize=12)
-plt.ylabel('Range (meters)', fontsize=12)
-plt.grid(True)
-plt.legend()
-plt.tight_layout()
-plt.show()
+# Example parameters
+v0 = 20  # Initial velocity in m/s
+g = 9.81 # Gravity in m/s^2
+projectile_range(v0, g)
 ```
 
-![alt text](image-2.png)
+![alt text](image-7.png)
 
 
 
@@ -461,53 +456,56 @@ We can use libraries like **SciPy**'s `odeint` or `solve_ivp` to solve these dif
 
 ```python
 import numpy as np
-from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
-# Parameters
-v0 = 30  # Initial velocity in m/s
-angle = 45  # Launch angle in degrees
-g = 9.81  # Gravitational acceleration in m/s²
-k = 0.1  # Drag coefficient (adjust as needed)
-angle_rad = np.radians(angle)  # Convert angle to radians
+def projectile_motion(v0, theta, g=9.81, dt=0.01):
+    """Compute projectile motion given initial velocity and angle."""
+    theta = np.radians(theta)
+    v0x = v0 * np.cos(theta)
+    v0y = v0 * np.sin(theta)
 
-# Initial conditions
-vx0 = v0 * np.cos(angle_rad)  # Initial horizontal velocity
-vy0 = v0 * np.sin(angle_rad)  # Initial vertical velocity
-initial_conditions = [0, 0, vx0, vy0]  # [x0, y0, vx0, vy0]
+    t_flight = (2 * v0y) / g
+    t = np.arange(0, t_flight, dt)
 
-# Define the system of differential equations
-def projectile_with_drag(t, y):
-    x, y_pos, vx, vy = y
-    dxdt = vx
-    dydt = vy
-    dvxdt = -k * vx
-    dvydt = -g - k * vy
-    return [dxdt, dydt, dvxdt, dvydt]
+    x = v0x * t
+    y = v0y * t - 0.5 * g * t**2
 
-# Time span and evaluation points
-t_span = (0, 10)  # Simulate for 10 seconds
-t_eval = np.linspace(0, 10, 500)
+    return x, y
 
-# Solve the system of equations
-solution = solve_ivp(projectile_with_drag, t_span, initial_conditions, t_eval=t_eval)
+# Define initial velocities and angles for both plots
+velocities_a = [30, 40, 50]
+angles_a = [45, 45, 45]
 
-# Extract results
-x, y_pos = solution.y[0], solution.y[1]
+velocities_b = [50, 50, 50]
+angles_b = [15, 45, 75]
 
-# Plot the trajectory
-plt.figure(figsize=(10, 6))
-plt.plot(x, y_pos, label="Projectile with Drag", color='red')
-plt.title('Projectile Motion with Air Resistance')
-plt.xlabel('Distance (m)')
-plt.ylabel('Height (m)')
-plt.grid(True)
-plt.legend()
+# Create figure and subplots
+fig, axs = plt.subplots(2, 1, figsize=(8, 10))
+colors = ['red', 'purple', 'green']
+
+def plot_projectiles(ax, velocities, angles, colors):
+    for v0, theta, color in zip(velocities, angles, colors):
+        x, y = projectile_motion(v0, theta)
+        ax.plot(x, y, color=color, label=f'v0 = {v0} m/s, {theta}°')
+    ax.axhline(0, color='black', linewidth=1)  # Ground line
+    ax.set_xlabel("Range (m)")
+    ax.set_ylabel("Height (m)")
+    ax.legend()
+    ax.grid()
+
+# Plot (a)
+plot_projectiles(axs[0], velocities_a, angles_a, colors)
+axs[0].set_title("(a) Projectile motion with different velocities at 45°")
+
+# Plot (b)
+plot_projectiles(axs[1], velocities_b, angles_b, colors)
+axs[1].set_title("(b) Projectile motion with 50 m/s at different angles")
+
 plt.tight_layout()
 plt.show()
 ```
 
-![alt text](image-1.png)
+![alt text](image-8.png)
 
 
 [visit website](https://colab.research.google.com/drive/12e4SEoh-Xdq62-cyfThP4y7GKXT5J23y#scrollTo=kOK303wNHwKm&uniqifier=4)
