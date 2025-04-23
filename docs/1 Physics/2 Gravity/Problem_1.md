@@ -96,6 +96,7 @@ T^2 \propto r^3
  ## 1. Moon's Orbit Around Earth
 
  ```python
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -108,6 +109,7 @@ r_moon = 384400e3  # m
 T_moon = 2 * np.pi * np.sqrt(r_moon**3 / (G * M_earth))
 T_moon_days = T_moon / (60 * 60 * 24)
 print(f"Orbital Period of Moon: {T_moon_days:.2f} days")
+
 ```
 
 Orbital Period of Moon: 27.45 days
