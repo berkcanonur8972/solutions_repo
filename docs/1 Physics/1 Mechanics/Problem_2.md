@@ -88,7 +88,7 @@ plt.show()
    A 
    $$
    
-    induces chaotic behavior at certain frequencies.
+  induces chaotic behavior at certain frequencies.
   - When 
   
   $$
