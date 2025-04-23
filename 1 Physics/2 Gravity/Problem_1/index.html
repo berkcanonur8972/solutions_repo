@@ -78,6 +78,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#extension-to-elliptical-orbits">Extension to Elliptical Orbits</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#my-colab">My Colab</a>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
@@ -263,36 +267,31 @@ r = 1 \, \text{AU} = 1.496 \times 10^{11}
 T^2 \propto r^3
  \]</div>
 <p>relationship.</p>
-<p>## 1. Moon's Orbit Around Earth</p>
-<p>```python</p>
-<p>import numpy as np
-import matplotlib.pyplot as plt</p>
-<h1 id="constants">Constants</h1>
-<p>G = 6.67430e-11  # m^3 kg^-1 s^-2
+<p>### 1. Moon's Orbit Around Earth</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+G = 6.67430e-11  # m^3 kg^-1 s^-2
 M_earth = 5.972e24  # kg
-r_moon = 384400e3  # m</p>
-<h1 id="calculate-orbital-period">Calculate orbital period</h1>
-<p>T_moon = 2 * np.pi * np.sqrt(r_moon**3 / (G * M_earth))
+r_moon = 384400e3  # m
+
+# Calculate orbital period
+T_moon = 2 * np.pi * np.sqrt(r_moon**3 / (G * M_earth))
 T_moon_days = T_moon / (60 * 60 * 24)
-print(f"Orbital Period of Moon: {T_moon_days:.2f} days")</p>
-<pre><code>
-Orbital Period of Moon: 27.45 days
-
-## Extension to Elliptical Orbits
-Kepler's Third Law also applies to elliptical orbits when using the semi-major axis `a` instead of radius `r`:
-
-$$
+print(f"Orbital Period of Moon: {T_moon_days:.2f} days")
+</code></pre>
+<p>Orbital Period of Moon: 27.45 days</p>
+<h2 id="extension-to-elliptical-orbits">Extension to Elliptical Orbits</h2>
+<p>Kepler's Third Law also applies to elliptical orbits when using the semi-major axis <code>a</code> instead of radius <code>r</code>:</p>
+<div class="arithmatex">\[
  T^2 = \frac{4\pi^2}{GM} a^3 
- $$
-
-This version holds true for all elliptical orbits, making the law universally applicable to binary stars, moons, and exoplanets.
-
----
-**Conclusion:**
-Kepler's Third Law connects orbital periods and radii through gravity's universal law. Whether examining artificial satellites or exoplanets, this principle guides modern astronomy and space science.
-
-```python
-import numpy as np
+ \]</div>
+<p>This version holds true for all elliptical orbits, making the law universally applicable to binary stars, moons, and exoplanets.</p>
+<hr/>
+<p><strong>Conclusion:</strong>
+Kepler's Third Law connects orbital periods and radii through gravity's universal law. Whether examining artificial satellites or exoplanets, this principle guides modern astronomy and space science.</p>
+<pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
 
 # Orbital radius in AU and orbital period in years for selected planets
