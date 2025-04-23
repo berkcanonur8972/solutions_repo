@@ -75,14 +75,16 @@ plt.show()
 
 ### Analysis of Dynamics
 - **Effects of Parameters:**
-  - Increasing 
+
+- Increasing 
   
   $$ 
   \gamma 
   $$ 
   
   leads to faster damping.
-  - Higher 
+
+- Higher 
   
   $$
   A 
@@ -90,13 +92,14 @@ plt.show()
    
   induces chaotic behavior at certain frequencies.
   
-  - When 
+- When 
   
   $$
    \omega \approx \omega_0 
    $$
    
    , resonance occurs.
+   
 - **Chaos and Transitions:**
   - A phase portrait can illustrate chaotic behavior.
   - Poincaré sections help identify quasiperiodic or chaotic states.
