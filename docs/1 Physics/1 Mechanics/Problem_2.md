@@ -85,10 +85,11 @@ plt.show()
   - Higher 
   
   $$
-   A 
-   $$
+  A 
+  $$
    
   induces chaotic behavior at certain frequencies.
+  
   - When 
   
   $$
