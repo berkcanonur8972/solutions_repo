@@ -91,6 +91,8 @@ projectile_range(v0, g)
 ### **Conclusion**
 This analysis demonstrates the relationship between launch angle and range, emphasizing its significance in various real-world applications. Future studies can incorporate drag forces for more realistic modeling.
 
+![alt text](image-33.png)
+
 
 
 
@@ -386,11 +388,59 @@ axs[1].set_title("(b) Projectile motion with 50 m/s at different angles")
 plt.tight_layout()
 plt.show()
 ```
-
-
-
-
 ![alt text](image-13.png)
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Fiziksel parametreler
+v0 = 50  # ilk hız (m/s)
+theta_deg = 45  # fırlatma açısı (derece)
+g = 9.81  # yerçekimi ivmesi (m/s^2)
+
+# Başlangıç hız bileşenleri
+theta = np.radians(theta_deg)
+v0x = v0 * np.cos(theta)
+v0y = v0 * np.sin(theta)
+
+# Uçuş süresi, maksimum yükseklik, menzil
+t_flight = 2 * v0y / g
+R = v0x * t_flight
+h_max = (v0y**2) / (2 * g)
+
+# Zaman ve konum verileri
+t = np.linspace(0, t_flight, 50)
+x = v0x * t
+y = v0y * t - 0.5 * g * t**2
+
+# Hız vektörleri
+vx = np.full_like(t, v0x)
+vy = v0y - g * t
+
+# Grafik
+plt.figure(figsize=(8, 6))
+plt.plot(x, y, 'b-', label='Projectile Path')  # hareket eğrisi
+
+# Hız vektörlerini çiz
+plt.quiver(x, y, vx, vy, color='red', angles='xy', scale_units='xy', scale=10, width=0.005)
+
+# Grafik ayarları
+plt.title('Projectile Motion with Velocity Vectors')
+plt.xlabel('Range (m)')
+plt.ylabel('Height (m)')
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.tight_layout()
+plt.show()
+```
+
+![alt text](image-34.png)
+
+
+
 
 
 

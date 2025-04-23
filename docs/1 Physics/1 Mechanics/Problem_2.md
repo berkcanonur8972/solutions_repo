@@ -108,3 +108,78 @@ plt.show()
 ### Conclusion
 This study demonstrates the transition from simple periodic motion to chaos. Future extensions can include nonlinear damping or stochastic driving forces.
 
+# Graphs for 5 States of Pendulum (Python Codes)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Ortak parametreler
+g = 9.81     # Yerçekimi
+l = 1.0      # Uzunluk
+gamma = 0.1  # Sönüm katsayısı
+A1 = 0.5     # Zorlayıcı kuvvet (Senaryo 1)
+A2 = 1.2     # Zorlayıcı kuvvet (Senaryo 2)
+w1 = 2.0     # Frekans 1
+w2 = 3.5     # Frekans 2
+
+t_span = (0, 20)
+t_eval = np.linspace(*t_span, 1000)
+theta0 = [np.pi / 4, 0]  # Başlangıç açısı ve hızı
+
+# Genel çözüm fonksiyonu
+def solve_pendulum(func, label):
+    sol = solve_ivp(func, t_span, theta0, t_eval=t_eval)
+    plt.plot(sol.t, sol.y[0], label=label)
+
+# 1. Simple Pendulum
+def simple_pendulum(t, y):
+    return [y[1], - (g / l) * np.sin(y[0])]
+
+# 2. Damped Pendulum
+def damped_pendulum(t, y):
+    return [y[1], -gamma * y[1] - (g / l) * np.sin(y[0])]
+
+# 3. Forced Pendulum
+def forced_pendulum(t, y):
+    return [y[1], - (g / l) * np.sin(y[0]) + A1 * np.cos(w1 * t)]
+
+# 4. Forced Damped Pendulum - Scenario 1
+def forced_damped_1(t, y):
+    return [y[1], -gamma * y[1] - (g / l) * np.sin(y[0]) + A1 * np.cos(w1 * t)]
+
+# 5. Forced Damped Pendulum - Scenario 2
+def forced_damped_2(t, y):
+    return [y[1], -0.05 * y[1] - (g / l) * np.sin(y[0]) + A2 * np.cos(w2 * t)]
+
+# Tüm grafikleri çiz
+plt.figure(figsize=(14, 8))
+solve_pendulum(simple_pendulum, "1. Simple Pendulum")
+solve_pendulum(damped_pendulum, "2. Damped Pendulum")
+solve_pendulum(forced_pendulum, "3. Forced Pendulum")
+solve_pendulum(forced_damped_1, "4. Forced Damped - Scenario 1")
+solve_pendulum(forced_damped_2, "5. Forced Damped - Scenario 2")
+
+plt.title("Pendulum Scenarios")
+plt.xlabel("Time (s)")
+plt.ylabel("Angle θ (rad)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+
+![alt text](image-35.png)
+
+![alt text](image-36.png)
+
+![alt text](image-37.png)
+
+![alt text](image-38.png)
+
+![alt text](image-39.png)
+
+## My Colab
+
+[visit website](https://colab.research.google.com/drive/1AeApmcVpYZswniM9LacdcCTsymshHwa4?usp=sharing)
