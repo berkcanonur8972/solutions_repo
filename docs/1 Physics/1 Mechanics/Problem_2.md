@@ -74,6 +74,7 @@ plt.show()
 ![alt text](image-14.png)
 
 ### Analysis of Dynamics
+
 - **Effects of Parameters:**
 
 - Increasing 
@@ -82,7 +83,7 @@ plt.show()
   \gamma 
   $$ 
   
-  leads to faster damping.
+   leads to faster damping.
 
 - Higher 
   
@@ -99,7 +100,7 @@ plt.show()
    $$
    
    , resonance occurs.
-   
+
 - **Chaos and Transitions:**
   - A phase portrait can illustrate chaotic behavior.
   - Poincaré sections help identify quasiperiodic or chaotic states.
