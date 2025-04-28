@@ -196,7 +196,81 @@ plt.legend()
 plt.show()
 ```
 
+
 ![alt text](image-2.png)
+
+```python
+import numpy as np
+
+# Evrensel çekim sabiti (m^3 kg^-1 s^-2)
+G = 6.67430e-11  
+
+# Dünya'nın Güneş etrafındaki ortalama yörünge yarıçapı (m)
+r = 1.496e11  
+
+# Dünya'nın Güneş etrafındaki tam tur süresi (saniye cinsinden)
+T = 365.25 * 24 * 60 * 60  # 1 yıl = 365.25 gün
+
+# Güneş kütlesini hesapla
+M = (4 * np.pi**2 * r**3) / (G * T**2)
+
+print(f"Güneş'in hesaplanan kütlesi: {M:.2e} kg")
+```
+
+# 🌍 Kepler Yasaları ile Güneş Kütlesi Hesaplama
+
+## ⚡ Kullanılan Formüller
+
+Kepler'in Üçüncü Yasası ve Newton'un Evrensel Çekim Yasası birleştirilirse:
+
+$$
+T^2 = \frac{4\pi^2 r^3}{G M}
+$$
+
+Buradan Güneş'in kütlesi \( M \) şöyle bulunur:
+
+$$
+M = \frac{4\pi^2 r^3}{G T^2}
+$$
+
+---
+
+## 📋 Parametreler
+
+- \( G = 6.67430 \times 10^{-11} \, \text{m}^3\, \text{kg}^{-1}\, \text{s}^{-2} \) (Evrensel çekim sabiti)
+- \( r = 1.496 \times 10^{11} \, \text{m} \) (Dünya-Güneş ortalama mesafesi)
+- \( T = 365.25 \times 24 \times 60 \times 60 \, \text{saniye} \) (Bir yıl)
+
+---
+
+## 🔢 Hesaplama Adımları
+
+- \( r^3 \) hesaplanır.
+- \( T^2 \) hesaplanır.
+- Sonra formül yerine konularak \( M \) hesaplanır.
+
+---
+
+## 🧮 Python Kodu
+
+```python
+import numpy as np
+
+# Evrensel çekim sabiti
+G = 6.67430e-11  
+
+# Dünya-Güneş arası mesafe
+r = 1.496e11  
+
+# Yörünge süresi
+T = 365.25 * 24 * 60 * 60  
+
+# Güneş kütlesini bul
+M = (4 * np.pi**2 * r**3) / (G * T**2)
+
+print(f"Güneş'in hesaplanan kütlesi: {M:.2e} kg")
+```
+![alt text](image-7.png)
 
 ```python
 import numpy as np
