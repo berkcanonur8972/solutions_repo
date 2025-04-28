@@ -217,107 +217,66 @@ M = (4 * np.pi**2 * r**3) / (G * T**2)
 print(f"Güneş'in hesaplanan kütlesi: {M:.2e} kg")
 ```
 
-# 🌍 Kepler Yasaları ile Güneş Kütlesi Hesaplama
+# Derivation of Earth and Sun Mass Using Kepler's Laws
 
-## ⚡ Kullanılan Formüller
-
-Kepler'in Üçüncü Yasası ve Newton'un Evrensel Çekim Yasası birleştirilirse:
-
+## Kepler's Third Law
+Kepler's Third Law relates a planet's orbital period \( T \) and semi-major axis \( a \):
 $$
-T^2 = \frac{4\pi^2 r^3}{G M}
+T^2 = \frac{4\pi^2}{G M} a^3
 $$
+Where:
+- \( T \): Orbital period (s)
+- \( a \): Semi-major axis (m)
+- \( G \): Gravitational constant (\( 6.674 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2} \))
+- \( M \): Mass of the central body (kg)
 
-Buradan Güneş'in kütlesi \( M \) şöyle bulunur:
+---
 
+## Deriving Sun’s Mass
+For Earth orbiting the Sun, \( M \approx M_{\text{Sun}} \) (Earth’s mass is negligible). Rearrange for \( M_{\text{Sun}} \):
 $$
-M = \frac{4\pi^2 r^3}{G T^2}
+M_{\text{Sun}} = \frac{4\pi^2 a^3}{G T^2}
+$$
+**Parameters**:
+- \( a = 1 \, \text{AU} \approx 1.496 \times 10^{11} \, \text{m} \)
+- \( T = 1 \, \text{year} \approx 3.156 \times 10^7 \, \text{s} \)
+
+**Calculation**:
+$$
+M_{\text{Sun}} = \frac{4\pi^2 (1.496 \times 10^{11})^3}{6.674 \times 10^{-11} (3.156 \times 10^7)^2}
+$$
+$$
+M_{\text{Sun}} \approx 1.989 \times 10^{30} \, \text{kg}
 $$
 
 ---
 
-## 📋 Parametreler
+## Deriving Earth’s Mass
+Use Kepler’s Third Law for a satellite orbiting Earth (e.g., Moon):
+$$
+M_{\text{Earth}} = \frac{4\pi^2 r^3}{G T^2}
+$$
+**Parameters**:
+- \( r \): Moon’s semi-major axis \( \approx 3.844 \times 10^8 \, \text{m} \)
+- \( T \): Moon’s orbital period \( \approx 27.32 \, \text{days} = 2.36 \times 10^6 \, \text{s} \)
 
-- \( G = 6.67430 \times 10^{-11} \, \text{m}^3\, \text{kg}^{-1}\, \text{s}^{-2} \) (Evrensel çekim sabiti)
-- \( r = 1.496 \times 10^{11} \, \text{m} \) (Dünya-Güneş ortalama mesafesi)
-- \( T = 365.25 \times 24 \times 60 \times 60 \, \text{saniye} \) (Bir yıl)
+**Calculation**:
+$$
+M_{\text{Earth}} = \frac{4\pi^2 (3.844 \times 10^8)^3}{6.674 \times 10^{-11} (2.36 \times 10^6)^2}
+$$
+$$
+M_{\text{Earth}} \approx 5.972 \times 10^{24} \, \text{kg}
+$$
 
 ---
 
-## 🔢 Hesaplama Adımları
+## Notes
+- \( M_{\text{Sun}} \) assumes Earth’s mass is negligible in the Sun-Earth system.
+- \( M_{\text{Earth}} \) requires a satellite’s orbit (e.g., Moon or artificial satellite).
+- Use consistent SI units (m, s, kg) for calculations.
+- Gravitational constant \( G \) is critical for accuracy.
 
-- \( r^3 \) hesaplanır.
-- \( T^2 \) hesaplanır.
-- Sonra formül yerine konularak \( M \) hesaplanır.
 
----
-
-## 🧮 Python Kodu
-
-```python
-import numpy as np
-
-# Evrensel çekim sabiti
-G = 6.67430e-11  
-
-# Dünya-Güneş arası mesafe
-r = 1.496e11  
-
-# Yörünge süresi
-T = 365.25 * 24 * 60 * 60  
-
-# Güneş kütlesini bul
-M = (4 * np.pi**2 * r**3) / (G * T**2)
-
-print(f"Güneş'in hesaplanan kütlesi: {M:.2e} kg")
-```
-![alt text](image-7.png)
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Constants
-G = 6.67430e-11         # Gravitational constant, m^3 kg^-1 s^-2
-M_sun = 1.989e30        # Mass of the Sun, kg
-AU = 1.496e11           # Astronomical unit in meters
-v_earth = 29_780        # Orbital speed of Earth in m/s (approximate)
-
-# Simulation parameters
-dt = 60 * 60            # Time step: 1 hour
-T = 365.25 * 24 * 3600  # 1 year in seconds
-steps = int(T / dt)
-
-# Initialize arrays
-pos = np.zeros((steps, 2))
-vel = np.zeros((steps, 2))
-
-# Initial position: 1 AU from Sun
-pos[0] = [AU, 0]
-
-# Initial velocity: perpendicular to position vector (for circular orbit)
-vel[0] = [0, v_earth]
-
-# Euler integration to update position and velocity
-for i in range(1, steps):
-    r = np.linalg.norm(pos[i-1])
-    acc = -G * M_sun * pos[i-1] / r**3
-    vel[i] = vel[i-1] + acc * dt
-    pos[i] = pos[i-1] + vel[i] * dt
-
-# Plotting
-plt.figure(figsize=(8, 8))
-plt.plot(pos[:, 0] / AU, pos[:, 1] / AU, label='Earth Orbit')
-plt.plot(0, 0, 'yo', markersize=10, label='Sun')  # Sun at origin
-plt.xlabel("x [AU]")
-plt.ylabel("y [AU]")
-plt.title("Simulated Circular Orbit: Earth Around the Sun")
-plt.axis('equal')
-plt.grid(True)
-plt.legend()
-plt.tight_layout()
-plt.show()
-
-```
 ![alt text](image-6.png)
 
 ```python
