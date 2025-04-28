@@ -360,6 +360,52 @@ plt.legend()
 plt.show()
 </code></pre>
 <p><img alt="alt text" src="../image-2.png"/></p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+G = 6.67430e-11         # Gravitational constant, m^3 kg^-1 s^-2
+M_sun = 1.989e30        # Mass of the Sun, kg
+AU = 1.496e11           # Astronomical unit in meters
+v_earth = 29_780        # Orbital speed of Earth in m/s (approximate)
+
+# Simulation parameters
+dt = 60 * 60            # Time step: 1 hour
+T = 365.25 * 24 * 3600  # 1 year in seconds
+steps = int(T / dt)
+
+# Initialize arrays
+pos = np.zeros((steps, 2))
+vel = np.zeros((steps, 2))
+
+# Initial position: 1 AU from Sun
+pos[0] = [AU, 0]
+
+# Initial velocity: perpendicular to position vector (for circular orbit)
+vel[0] = [0, v_earth]
+
+# Euler integration to update position and velocity
+for i in range(1, steps):
+    r = np.linalg.norm(pos[i-1])
+    acc = -G * M_sun * pos[i-1] / r**3
+    vel[i] = vel[i-1] + acc * dt
+    pos[i] = pos[i-1] + vel[i] * dt
+
+# Plotting
+plt.figure(figsize=(8, 8))
+plt.plot(pos[:, 0] / AU, pos[:, 1] / AU, label='Earth Orbit')
+plt.plot(0, 0, 'yo', markersize=10, label='Sun')  # Sun at origin
+plt.xlabel("x [AU]")
+plt.ylabel("y [AU]")
+plt.title("Simulated Circular Orbit: Earth Around the Sun")
+plt.axis('equal')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+</code></pre>
+<p><img alt="alt text" src="../image-6.png"/></p>
 <pre><code class="language-python"># Linear regression (for illustrative best-fit)
 
 from scipy.stats import linregress
