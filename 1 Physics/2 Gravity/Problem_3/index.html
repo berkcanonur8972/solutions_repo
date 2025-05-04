@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 3 - Physics and Mathematics</title>
+<title>Trajectories of a Freely Released Payload Near Earth - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 3";
+        var mkdocs_page_name = "Trajectories of a Freely Released Payload Near Earth";
         var mkdocs_page_input_path = "1 Physics/2 Gravity/Problem_3.md";
         var mkdocs_page_url = null;
       </script>
@@ -58,8 +58,40 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Problem_2/">Problem 2</a>
 </li>
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 3</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Trajectories of a Freely Released Payload Near Earth</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-background">Theoretical Background</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#newtons-law-of-gravitation">Newton's Law of Gravitation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#types-of-trajectories">Types of Trajectories</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#vis-viva-equation">Vis-Viva Equation</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#escape-velocity">Escape Velocity</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-simulation">Numerical Simulation</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#assumptions">Assumptions</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#python-code">Python Code</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#explanation-of-code">Explanation of Code</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#applications">Applications</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">Conclusion</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +195,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">2 Gravity</li>
-<li class="breadcrumb-item active">Problem 3</li>
+<li class="breadcrumb-item active">Trajectories of a Freely Released Payload Near Earth</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +203,159 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-3">Problem 3</h1>
+<h1 id="trajectories-of-a-freely-released-payload-near-earth">Trajectories of a Freely Released Payload Near Earth</h1>
+<h2 id="introduction">Introduction</h2>
+<p>When a payload is released from a moving rocket near Earth, its trajectory is governed by gravitational forces and initial conditions (position and velocity). This problem involves orbital mechanics, numerical methods, and visualization to analyze possible paths: elliptical, parabolic, or hyperbolic. Understanding these trajectories is critical for space mission planning, such as orbital insertion, atmospheric reentry, or escape from Earth's gravity.</p>
+<p>This document provides:
+1. A theoretical overview of gravitational dynamics and trajectory types.
+2. A numerical simulation using Python to compute and visualize payload trajectories.
+3. Discussion of real-world applications.</p>
+<h2 id="theoretical-background">Theoretical Background</h2>
+<h3 id="newtons-law-of-gravitation">Newton's Law of Gravitation</h3>
+<p>The gravitational force between Earth (mass <span class="arithmatex">\(M\)</span>) and a payload (mass <span class="arithmatex">\(m\)</span>) is given by:
+$$
+F = \frac{G M m}{r^2}
+$$
+where:
+- <span class="arithmatex">\(G = 6.674 \times 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}\)</span> is the gravitational constant,
+- <span class="arithmatex">\(r\)</span> is the distance from Earth's center,
+- <span class="arithmatex">\(M = 5.972 \times 10^{24} \, \text{kg}\)</span> is Earth's mass.</p>
+<p>The acceleration of the payload is:
+$$
+\ddot{\mathbf{r}} = -\frac{G M}{r^3} \mathbf{r}
+$$
+where <span class="arithmatex">\(\mathbf{r}\)</span> is the position vector, and <span class="arithmatex">\(r = |\mathbf{r}|\)</span>.</p>
+<h3 id="types-of-trajectories">Types of Trajectories</h3>
+<p>The trajectory depends on the specific energy of the payload, determined by its velocity <span class="arithmatex">\(v\)</span> and distance <span class="arithmatex">\(r\)</span>:
+$$
+\epsilon = \frac{v^2}{2} - \frac{G M}{r}
+$$
+- <strong>Elliptical orbit</strong> (<span class="arithmatex">\(\epsilon &lt; 0\)</span>): The payload remains bound to Earth, following a closed orbit (e.g., satellite deployment).
+- <strong>Parabolic trajectory</strong> (<span class="arithmatex">\(\epsilon = 0\)</span>): The payload achieves escape velocity, just sufficient to leave Earth's gravity (e.g., marginal escape).
+- <strong>Hyperbolic trajectory</strong> (<span class="arithmatex">\(\epsilon &gt; 0\)</span>): The payload has excess energy, escaping Earth's gravity with residual velocity (e.g., interplanetary missions).</p>
+<h3 id="vis-viva-equation">Vis-Viva Equation</h3>
+<p>The relationship between velocity, distance, and semi-major axis <span class="arithmatex">\(a\)</span> is:
+$$
+v^2 = G M \left( \frac{2}{r} - \frac{1}{a} \right)
+$$
+- For elliptical orbits, <span class="arithmatex">\(a &gt; 0\)</span>.
+- For parabolic trajectories, <span class="arithmatex">\(a \to \infty\)</span>.
+- For hyperbolic trajectories, <span class="arithmatex">\(a &lt; 0\)</span>.</p>
+<h3 id="escape-velocity">Escape Velocity</h3>
+<p>The minimum velocity to escape Earth's gravity at distance <span class="arithmatex">\(r\)</span> is:
+$$
+v_{\text{esc}} = \sqrt{\frac{2 G M}{r}}
+$$</p>
+<h2 id="numerical-simulation">Numerical Simulation</h2>
+<p>We simulate the payload's motion using Python, solving the differential equation <span class="arithmatex">\(\ddot{\mathbf{r}} = -\frac{G M}{r^3} \mathbf{r}\)</span> with initial conditions. The <code>scipy.integrate</code> library is used for numerical integration, and <code>matplotlib</code> for visualization.</p>
+<h3 id="assumptions">Assumptions</h3>
+<ul>
+<li>Earth is a point mass at its center.</li>
+<li>No atmospheric drag or other forces (e.g., solar radiation).</li>
+<li>2D motion in the orbital plane for simplicity.</li>
+<li>Initial conditions:</li>
+<li>Altitude: 400 km (Low Earth Orbit, LEO).</li>
+<li>Initial position: <span class="arithmatex">\(r_0 = R_E + 400 \, \text{km}\)</span>, where <span class="arithmatex">\(R_E = 6,371 \, \text{km}\)</span> (Earth's radius).</li>
+<li>Initial velocity: Varies to produce elliptical, parabolic, or hyperbolic trajectories.</li>
+</ul>
+<h3 id="python-code">Python Code</h3>
+<p>The following script simulates and visualizes the payload's trajectory for three cases.</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+
+# Constants
+G = 6.674e-11  # Gravitational constant (m^3 kg^-1 s^-2)
+M = 5.972e24   # Earth's mass (kg)
+R_E = 6.371e6  # Earth's radius (m)
+mu = G * M     # Gravitational parameter (m^3 s^-2)
+
+# Initial conditions
+h = 400e3      # Altitude (m)
+r0 = R_E + h   # Initial distance from Earth's center (m)
+x0 = r0        # Initial x-position (m)
+y0 = 0         # Initial y-position (m)
+
+# Circular orbit velocity (for reference)
+v_circ = np.sqrt(mu / r0)  # ~7.67 km/s at 400 km altitude
+
+# Velocity cases
+v_elliptical = 0.9 * v_circ  # Sub-circular velocity
+v_parabolic = np.sqrt(2 * mu / r0)  # Escape velocity (~10.84 km/s)
+v_hyperbolic = 1.2 * v_parabolic  # Excess velocity
+
+# Equations of motion
+def motion(state, t):
+    x, y, vx, vy = state
+    r = np.sqrt(x**2 + y**2)
+    ax = -mu * x / r**3
+    ay = -mu * y / r**3
+    return [vx, vy, ax, ay]
+
+# Time array
+t = np.linspace(0, 3600, 1000)  # 1 hour simulation
+
+# Simulate trajectories
+trajectories = []
+for v in [v_elliptical, v_parabolic, v_hyperbolic]:
+    state0 = [x0, y0, 0, v]  # Initial state: [x, y, vx, vy]
+    states = odeint(motion, state0, t)
+    trajectories.append(states)
+
+# Plotting
+plt.figure(figsize=(10, 8))
+
+# Plot Earth
+earth = plt.Circle((0, 0), R_E, color='blue', alpha=0.3)
+plt.gca().add_patch(earth)
+
+# Plot trajectories
+labels = ['Elliptical', 'Parabolic', 'Hyperbolic']
+colors = ['green', 'orange', 'red']
+for i, traj in enumerate(trajectories):
+    plt.plot(traj[:, 0], traj[:, 1], label=labels[i], color=colors[i])
+
+plt.xlabel('X (m)')
+plt.ylabel('Y (m)')
+plt.title('Payload Trajectories from 400 km Altitude')
+plt.legend()
+plt.grid(True)
+plt.axis('equal')
+plt.savefig('trajectories.png')
+plt.close()
+</code></pre>
+<p><img alt="alt text" src="../image-9.png"/></p>
+<h3 id="explanation-of-code">Explanation of Code</h3>
+<ul>
+<li><strong>Constants</strong>: Define gravitational parameters and Earth's properties.</li>
+<li><strong>Initial Conditions</strong>: Payload released at 400 km altitude with zero initial x-velocity and varying y-velocities.</li>
+<li><strong>Numerical Integration</strong>: Use <code>odeint</code> to solve the differential equations of motion.</li>
+<li><strong>Visualization</strong>: Plot Earth as a circle and overlay the trajectories.</li>
+</ul>
+<h2 id="results">Results</h2>
+<p>The simulation produces three trajectories:
+1. <strong>Elliptical</strong>: The payload orbits Earth in a closed path, suitable for satellite deployment.
+2. <strong>Parabolic</strong>: The payload escapes Earth's gravity with zero residual velocity at infinity.
+3. <strong>Hyperbolic</strong>: The payload escapes with excess velocity, typical for interplanetary missions.</p>
+<p>The plot (<code>trajectories.png</code>) shows:
+- Earth as a blue circle.
+- Green curve: Elliptical orbit, looping around Earth.
+- Orange curve: Parabolic trajectory, diverging from Earth.
+- Red curve: Hyperbolic trajectory, diverging more sharply.</p>
+<h2 id="applications">Applications</h2>
+<ul>
+<li><strong>Orbital Insertion</strong>: Elliptical trajectories are used for satellites or space stations in LEO. The payload must achieve sufficient velocity (e.g., ~7.67 km/s at 400 km) to maintain orbit.</li>
+<li><strong>Reentry</strong>: If the payload's velocity is reduced (e.g., via thrusters), it may enter a sub-elliptical trajectory, leading to atmospheric reentry.</li>
+<li><strong>Escape Missions</strong>: Hyperbolic trajectories are critical for missions to the Moon, Mars, or beyond, requiring velocities exceeding escape velocity (~10.84 km/s at 400 km).</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>The model assumes a two-body problem, ignoring atmospheric drag, Earth's oblateness, or other celestial bodies.</li>
+<li>2D simplification limits applicability to non-planar orbits.</li>
+<li>Higher altitudes or complex maneuvers require additional considerations (e.g., Hohmann transfers).</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>The trajectories of a freely released payload near Earth depend on its initial velocity relative to the escape velocity. Numerical simulations provide insights into orbital mechanics, enabling precise mission planning. The provided Python tool visualizes these trajectories, serving as a foundation for further exploration in space mission design.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
