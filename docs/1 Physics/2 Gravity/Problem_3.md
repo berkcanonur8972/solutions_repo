@@ -80,18 +80,13 @@ R_E = 6.371e6  # Earth's radius (m)
 mu = G * M     # Gravitational parameter (m^3 s^-2)
 
 # Initial conditions
-h = 400e3      # Altitude (m)
+h = 800e3      # Altitude (m)
 r0 = R_E + h   # Initial distance from Earth's center (m)
 x0 = r0        # Initial x-position (m)
 y0 = 0         # Initial y-position (m)
 
-# Circular orbit velocity (for reference)
-v_circ = np.sqrt(mu / r0)  # ~7.67 km/s at 400 km altitude
-
-# Velocity cases
-v_elliptical = 0.9 * v_circ  # Sub-circular velocity
-v_parabolic = np.sqrt(2 * mu / r0)  # Escape velocity (~10.84 km/s)
-v_hyperbolic = 1.2 * v_parabolic  # Excess velocity
+# Initial velocities (km/s to m/s)
+velocities = np.arange(5, 13.5, 0.5) * 1e3  # [5, 5.5, ..., 13] km/s
 
 # Equations of motion
 def motion(state, t):
@@ -101,39 +96,41 @@ def motion(state, t):
     ay = -mu * y / r**3
     return [vx, vy, ax, ay]
 
-# Time array
-t = np.linspace(0, 3600, 1000)  # 1 hour simulation
+# Time array (2 hours for sufficient trajectory visibility)
+t = np.linspace(0, 7200, 1000)
 
 # Simulate trajectories
 trajectories = []
-for v in [v_elliptical, v_parabolic, v_hyperbolic]:
+for v in velocities:
     state0 = [x0, y0, 0, v]  # Initial state: [x, y, vx, vy]
     states = odeint(motion, state0, t)
     trajectories.append(states)
 
 # Plotting
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(12, 10))
 
 # Plot Earth
 earth = plt.Circle((0, 0), R_E, color='blue', alpha=0.3)
 plt.gca().add_patch(earth)
 
 # Plot trajectories
-labels = ['Elliptical', 'Parabolic', 'Hyperbolic']
-colors = ['green', 'orange', 'red']
 for i, traj in enumerate(trajectories):
-    plt.plot(traj[:, 0], traj[:, 1], label=labels[i], color=colors[i])
+    plt.plot(traj[:, 0], traj[:, 1], label=f'v = {velocities[i]/1e3:.1f} km/s')
+
+# Mark initial position
+plt.plot(x0, y0, 'ro', label='Initial Position (800 km altitude)')
 
 plt.xlabel('X (m)')
 plt.ylabel('Y (m)')
-plt.title('Payload Trajectories from 400 km Altitude')
-plt.legend()
+plt.title('Payload Trajectories from 800 km Altitude with Varying Initial Velocities')
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(True)
 plt.axis('equal')
-plt.savefig('trajectories.png')
+plt.tight_layout()
+plt.savefig('trajectories_varied_velocities.png')
 plt.close()
 ```
-![alt text](image-9.png)
+![alt text](image-10.png)
 
 ### Explanation of Code
 - **Constants**: Define gravitational parameters and Earth's properties.
