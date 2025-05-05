@@ -136,6 +136,8 @@ plt.savefig('triangle_interference_3d.png')
 
 ![alt text](image-13.png)
 
+![alt text](triangle_interference_2d.gif)
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
