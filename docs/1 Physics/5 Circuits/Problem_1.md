@@ -1,6 +1,3 @@
-Below are detailed Markdown notes on calculating equivalent resistance using graph theory, focusing on the simplified task (Option 1) as requested. The notes include a clear explanation of the algorithm, pseudocode, examples of handling complex circuit configurations, and a brief analysis of efficiency. The content is structured to provide a comprehensive understanding while maintaining clarity.
-
-
 
 # Equivalent Resistance Using Graph Theory
 
