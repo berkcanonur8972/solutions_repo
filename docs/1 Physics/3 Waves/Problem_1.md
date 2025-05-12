@@ -268,3 +268,9 @@ plt.show()
 
 ## Conclusion
 The equilateral triangle configuration produces a symmetrical interference pattern with distinct regions of constructive and destructive interference. The 2D and 3D plots effectively visualize these patterns, demonstrating the principles of wave superposition and phase interaction on a water surface.
+
+## My Colab
+
+[visit website](https://colab.research.google.com/drive/bc1qnx253th4lde8plfvt6zx03v45s62p6llylg63g?usp=sharing)
+
+---

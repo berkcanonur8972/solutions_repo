@@ -134,3 +134,8 @@ The algorithm is applied to three example circuits to demonstrate its handling o
 ## Conclusion
 Using graph theory to calculate equivalent resistance transforms a potentially tedious problem into a structured, algorithmic process. The iterative reduction algorithm handles simple and nested configurations effectively, though complex cyclic graphs may require advanced techniques. This approach is not only practical for circuit analysis but also demonstrates the power of graph theory in bridging electrical engineering and computer science.
 
+## My Colab
+
+[visit website](https://colab.research.google.com/drive/bc1qnx253th4lde8plfvt6zx03v45s62p6llylg63g?usp=sharing)
+
+---

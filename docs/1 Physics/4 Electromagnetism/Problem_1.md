@@ -188,3 +188,9 @@ print(f"Drift Velocity (Crossed Fields): {v_drift:.2e} m/s")
 - **Interactive Visualization**: Use libraries like Plotly for dynamic parameter exploration.
 
 This simulation provides an intuitive understanding of the Lorentz force’s effects, bridging theoretical concepts with practical applications in physics and engineering.
+
+## My Colab
+
+[visit website](https://colab.research.google.com/drive/bc1qnx253th4lde8plfvt6zx03v45s62p6llylg63g?usp=sharing)
+
+---
