@@ -1,6 +1,6 @@
 # Simulating the Effects of the Lorentz Force
 
-The Lorentz force, given by $$\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$, describes the force on a charged particle in electric ($\mathbf{E}$) and magnetic ($\mathbf{B}$) fields. This force is critical in various systems, and simulating its effects provides insights into particle dynamics. Below, we explore applications, implement simulations, and visualize trajectories.
+The Lorentz force, given by $\mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$, describes the force on a charged particle in electric ($\mathbf{E}$) and magnetic ($\mathbf{B}$) fields. This force is critical in various systems, and simulating its effects provides insights into particle dynamics. Below, we explore applications, implement simulations, and visualize trajectories.
 
 ## 1. Exploration of Applications
 
