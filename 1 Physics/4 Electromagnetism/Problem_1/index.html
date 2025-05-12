@@ -205,10 +205,10 @@
 1. Uniform magnetic field.
 2. Combined uniform electric and magnetic fields.
 3. Crossed electric and magnetic fields.</p>
-<p>The equation of motion is derived from Newton’s second law:
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{F} = m\mathbf{a} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})\)</span>\)</span>
-Thus, acceleration is:
-<span class="arithmatex">\(<span class="arithmatex">\(\mathbf{a} = \frac{q}{m}(\mathbf{E} + \mathbf{v} \times \mathbf{B})\)</span>\)</span></p>
+<p>The equation of motion is derived from Newton’s second law:</p>
+<div class="arithmatex">\[\mathbf{F} = m\mathbf{a} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})\]</div>
+<p>Thus, acceleration is:</p>
+<div class="arithmatex">\[\mathbf{a} = \frac{q}{m}(\mathbf{E} + \mathbf{v} \times \mathbf{B})\]</div>
 <p>We use the <strong>Runge-Kutta 4th-order (RK4)</strong> method for numerical integration, as it provides better accuracy than the Euler method. The simulation is implemented in Python using NumPy for calculations and Matplotlib for visualization.</p>
 <h2 id="3-parameter-exploration">3. Parameter Exploration</h2>
 <p>Key parameters to vary:
@@ -216,8 +216,8 @@ Thus, acceleration is:
 - <strong>Initial Velocity</strong>: <span class="arithmatex">\(\mathbf{v}_0\)</span> (components in m/s).
 - <strong>Particle Properties</strong>: Charge <span class="arithmatex">\(q\)</span> (in Coulombs), mass <span class="arithmatex">\(m\)</span> (in kg).</p>
 <p>These parameters influence:
-- <strong>Larmor Radius</strong>: <span class="arithmatex">\(<span class="arithmatex">\(r_L = \frac{mv_\perp}{|q|B}\)</span>\)</span>, the radius of circular motion in a magnetic field.
-- <strong>Drift Velocity</strong>: In crossed fields, <span class="arithmatex">\(<span class="arithmatex">\(v_d = \frac{E}{B}\)</span>\)</span> for <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>.
+- <strong>Larmor Radius</strong>: <span class="arithmatex">\(r_L = \frac{mv_\perp}{|q|B}\)</span>, the radius of circular motion in a magnetic field.
+- <strong>Drift Velocity</strong>: In crossed fields, <span class="arithmatex">\(v_d = \frac{E}{B}\)</span> for <span class="arithmatex">\(\mathbf{E} \perp \mathbf{B}\)</span>.
 - <strong>Trajectory Type</strong>: Circular (magnetic field only), helical (with initial velocity along <span class="arithmatex">\(\mathbf{B}\)</span>), or drift (crossed fields).</p>
 <h2 id="4-visualization">4. Visualization</h2>
 <p>We generate:
