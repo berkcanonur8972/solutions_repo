@@ -156,18 +156,18 @@ print(f"Larmor Radius (Uniform B): {r_larmor:.2e} m")
 v_drift = np.linalg.norm(E_field) / np.linalg.norm(B_uniform)
 print(f"Drift Velocity (Crossed Fields): {v_drift:.2e} m/s")
 ```
+![alt text](image-8.png)
 
-![alt text](image-1.png)
+![alt text](image-9.png)
 
-![alt text](image-2.png)
+![alt text](image-10.png)
 
-![alt text](image-3.png)
+![alt text](image-11.png)
 
-![alt text](image-4.png)
+![alt text](image-12.png)
 
-![alt text](image-5.png)
+![alt text](image-13.png)
 
-![alt text](image-7.png)
 
 ## Results and Discussion
 
