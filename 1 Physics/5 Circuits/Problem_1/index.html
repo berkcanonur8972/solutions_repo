@@ -318,6 +318,41 @@
 </ul>
 <h2 id="conclusion">Conclusion</h2>
 <p>Using graph theory to calculate equivalent resistance transforms a potentially tedious problem into a structured, algorithmic process. The iterative reduction algorithm handles simple and nested configurations effectively, though complex cyclic graphs may require advanced techniques. This approach is not only practical for circuit analysis but also demonstrates the power of graph theory in bridging electrical engineering and computer science.</p>
+<pre><code class="language-python">import networkx as nx
+import matplotlib.pyplot as plt
+
+# Function to plot a graph with resistance labels
+def plot_circuit(G, title, pos=None):
+    plt.figure(figsize=(6, 4))
+    if pos is None:
+        pos = nx.spring_layout(G)
+    nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=500, font_size=12, font_weight='bold')
+    edge_labels = nx.get_edge_attributes(G, 'weight')
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=10)
+    plt.title(title)
+    plt.show()
+
+# Step 1: Initial Graph
+G1 = nx.Graph()
+G1.add_nodes_from(['A', 'B', 'C'])
+G1.add_edges_from([('A', 'C', {'weight': 2}), ('C', 'B', {'weight': 3}), ('A', 'B', {'weight': 5})])
+plot_circuit(G1, "Initial Circuit Graph")
+
+# Step 2: After Series Reduction
+G2 = nx.Graph()
+G2.add_nodes_from(['A', 'B'])
+G2.add_edges_from([('A', 'B', {'weight': 5}), ('A', 'B', {'weight': 5})])  # Two edges for parallel
+plot_circuit(G2, "After Series Reduction (A-C-B combined)")
+
+# Step 3: After Parallel Reduction
+G3 = nx.Graph()
+G3.add_nodes_from(['A', 'B'])
+G3.add_edge('A', 'B', weight=2.5)
+plot_circuit(G3, "After Parallel Reduction (Final Equivalent Resistance)")
+</code></pre>
+<p><img alt="alt text" src="../image.png"/></p>
+<p><img alt="alt text" src="../image-1.png"/></p>
+<p><img alt="alt text" src="../image-2.png"/></p>
 <h2 id="my-colab">My Colab</h2>
 <p><a href="https://colab.research.google.com/drive/bc1qnx253th4lde8plfvt6zx03v45s62p6llylg63g?usp=sharing">visit website</a></p>
 <hr/>
