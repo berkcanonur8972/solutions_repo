@@ -23,8 +23,11 @@ We simulate a charged particle’s trajectory under three scenarios:
 3. Crossed electric and magnetic fields.
 
 The equation of motion is derived from Newton’s second law:
+
 $$\mathbf{F} = m\mathbf{a} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$
+
 Thus, acceleration is:
+
 $$\mathbf{a} = \frac{q}{m}(\mathbf{E} + \mathbf{v} \times \mathbf{B})$$
 
 We use the **Runge-Kutta 4th-order (RK4)** method for numerical integration, as it provides better accuracy than the Euler method. The simulation is implemented in Python using NumPy for calculations and Matplotlib for visualization.
@@ -37,8 +40,8 @@ Key parameters to vary:
 - **Particle Properties**: Charge $q$ (in Coulombs), mass $m$ (in kg).
 
 These parameters influence:
-- **Larmor Radius**: $$r_L = \frac{mv_\perp}{|q|B}$$, the radius of circular motion in a magnetic field.
-- **Drift Velocity**: In crossed fields, $$v_d = \frac{E}{B}$$ for $\mathbf{E} \perp \mathbf{B}$.
+- **Larmor Radius**: $r_L = \frac{mv_\perp}{|q|B}$, the radius of circular motion in a magnetic field.
+- **Drift Velocity**: In crossed fields, $v_d = \frac{E}{B}$ for $\mathbf{E} \perp \mathbf{B}$.
 - **Trajectory Type**: Circular (magnetic field only), helical (with initial velocity along $\mathbf{B}$), or drift (crossed fields).
 
 ## 4. Visualization
