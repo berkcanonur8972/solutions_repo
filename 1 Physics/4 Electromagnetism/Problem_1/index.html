@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Simulating the Effects of the Lorentz Force - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Simulating the Effects of the Lorentz Force";
         var mkdocs_page_input_path = "1 Physics/4 Electromagnetism/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -70,8 +70,24 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">4 Electromagnetism</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Simulating the Effects of the Lorentz Force</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#1-exploration-of-applications">1. Exploration of Applications</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#2-simulating-particle-motion">2. Simulating Particle Motion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#3-parameter-exploration">3. Parameter Exploration</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#4-visualization">4. Visualization</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#python-implementation">Python Implementation</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#results-and-discussion">Results and Discussion</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#suggestions-for-extensions">Suggestions for Extensions</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +179,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">4 Electromagnetism</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Simulating the Effects of the Lorentz Force</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +187,159 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="simulating-the-effects-of-the-lorentz-force">Simulating the Effects of the Lorentz Force</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The Lorentz force, given by the equation $$ \mathbf{F} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) $$, describes the force on a charged particle in the presence of electric (<span class="arithmatex">\(\mathbf{E}\)</span>) and magnetic (<span class="arithmatex">\(\mathbf{B}\)</span>) fields. This force is pivotal in understanding the dynamics of charged particles in various systems, such as particle accelerators, mass spectrometers, and plasma confinement devices. Simulating the motion of particles under the Lorentz force allows us to visualize complex trajectories and explore practical applications.</p>
+<h2 id="1-exploration-of-applications">1. Exploration of Applications</h2>
+<p>The Lorentz force is fundamental in several systems:
+- <strong>Particle Accelerators</strong>: In cyclotrons, magnetic fields cause charged particles to follow circular paths, while electric fields accelerate them.
+- <strong>Mass Spectrometers</strong>: The Lorentz force separates ions based on their charge-to-mass ratio, enabling precise measurements.
+- <strong>Plasma Confinement</strong>: In fusion devices like tokamaks, magnetic fields confine charged particles to sustain high-temperature plasmas.
+- <strong>Astrophysical Phenomena</strong>: The Lorentz force governs charged particle motion in cosmic magnetic fields, such as in auroras or solar winds.</p>
+<p><strong>Role of Fields</strong>:
+- <strong>Electric Field (<span class="arithmatex">\(\mathbf{E}\)</span>)</strong>: Accelerates particles along the field direction, contributing to linear motion.
+- <strong>Magnetic Field (<span class="arithmatex">\(\mathbf{B}\)</span>)</strong>: Causes circular or helical motion perpendicular to the field due to the cross product <span class="arithmatex">\(\mathbf{v} \times \mathbf{B}\)</span>.</p>
+<h2 id="2-simulating-particle-motion">2. Simulating Particle Motion</h2>
+<p>We will simulate the trajectory of a charged particle under three scenarios:
+1. <strong>Uniform Magnetic Field</strong>: Produces circular or helical motion.
+2. <strong>Combined Electric and Magnetic Fields</strong>: Introduces additional acceleration.
+3. <strong>Crossed Electric and Magnetic Fields</strong>: Leads to drift motion (e.g., <span class="arithmatex">\(\mathbf{E} \times \mathbf{B}\)</span> drift).</p>
+<p>The equations of motion are derived from Newton’s second law:
+$$ m \frac{d\mathbf{v}}{dt} = q(\mathbf{E} + \mathbf{v} \times \mathbf{B}) $$
+We solve these numerically using the <strong>Runge-Kutta 4th-order (RK4)</strong> method for accuracy.</p>
+<h2 id="3-parameter-exploration">3. Parameter Exploration</h2>
+<p>The simulation allows variation in:
+- <strong>Field Strengths</strong>: <span class="arithmatex">\(\mathbf{E}\)</span> and <span class="arithmatex">\(\mathbf{B}\)</span>.
+- <strong>Initial Velocity</strong>: <span class="arithmatex">\(\mathbf{v}_0\)</span>.
+- <strong>Particle Properties</strong>: Charge (<span class="arithmatex">\(q\)</span>) and mass (<span class="arithmatex">\(m\)</span>).</p>
+<p>Key phenomena to observe:
+- <strong>Larmor Radius</strong>: <span class="arithmatex">\( r_L = \frac{m v_\perp}{q B} \)</span>, the radius of circular motion in a magnetic field.
+- <strong>Drift Velocity</strong>: For crossed fields, <span class="arithmatex">\( \mathbf{v}_d = \frac{\mathbf{E} \times \mathbf{B}}{B^2} \)</span>.</p>
+<h2 id="4-visualization">4. Visualization</h2>
+<p>We use Matplotlib to create:
+- <strong>2D Plots</strong>: Show trajectories in the <span class="arithmatex">\(xy\)</span>-plane for clarity.
+- <strong>3D Plots</strong>: Visualize helical or complex paths in three dimensions.
+- Labels and annotations highlight the Larmor radius, drift velocity, and field directions.</p>
+<h2 id="python-implementation">Python Implementation</h2>
+<p>Below is a Python script that simulates the motion of a charged particle under the Lorentz force. It includes three cases: uniform magnetic field, combined fields, and crossed fields.</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Constants
+q = 1.6e-19  # Charge (C, e.g., electron)
+m = 9.11e-31  # Mass (kg, e.g., electron)
+dt = 1e-9     # Time step (s)
+t_max = 1e-6  # Total time (s)
+steps = int(t_max / dt)
+
+# Field configurations
+B_uniform = np.array([0, 0, 1.0])  # Uniform B-field along z (T)
+E_uniform = np.array([0, 0, 0])    # No E-field initially
+E_crossed = np.array([0, 1e4, 0])  # E-field for crossed fields (V/m)
+
+# Initial conditions
+r0 = np.array([0, 0, 0], dtype=float)  # Initial position (m)
+v0 = np.array([1e5, 0, 1e5], dtype=float)  # Initial velocity (m/s)
+
+# Lorentz force function
+def lorentz_force(r, v, E, B):
+    return q * (E + np.cross(v, B))
+
+# RK4 integrator
+def rk4_step(r, v, E, B):
+    k1_v = lorentz_force(r, v, E, B) / m
+    k1_r = v
+
+    k2_v = lorentz_force(r + 0.5*dt*k1_r, v + 0.5*dt*k1_v, E, B) / m
+    k2_r = v + 0.5*dt*k1_v
+
+    k3_v = lorentz_force(r + 0.5*dt*k2_r, v + 0.5*dt*k2_v, E, B) / m
+    k3_r = v + 0.5*dt*k2_v
+
+    k4_v = lorentz_force(r + dt*k3_r, v + dt*k3_v, E, B) / m
+    k4_r = v + dt*k3_v
+
+    r_new = r + (dt/6) * (k1_r + 2*k2_r + 2*k3_r + k4_r)
+    v_new = v + (dt/6) * (k1_v + 2*k2_v + 2*k3_v + k4_v)
+    return r_new, v_new
+
+# Simulation function
+def simulate_motion(E, B, r0, v0):
+    r = np.zeros((steps, 3))
+    v = np.zeros((steps, 3))
+    r[0] = r0
+    v[0] = v0
+
+    for i in range(steps-1):
+        r[i+1], v[i+1] = rk4_step(r[i], v[i], E, B)
+
+    return r, v
+
+# Run simulations for three cases
+# Case 1: Uniform magnetic field
+r1, v1 = simulate_motion(np.array([0, 0, 0]), B_uniform, r0, v0)
+
+# Case 2: Combined electric and magnetic fields
+E_combined = np.array([0, 0, 1e4])
+r2, v2 = simulate_motion(E
+r2, v2 = simulate_motion(E_combined, B_uniform, r0, v0)
+
+# Case 3: Crossed fields
+r3, v3 = simulate_motion(E_crossed, B_uniform, r0, v0)
+
+# Plotting
+fig = plt.figure(figsize=(15, 5))
+
+# Case 1: Uniform B-field
+ax1 = fig.add_subplot(131, projection='3d')
+ax1.plot(r1[:, 0], r1[:, 1], r1[:, 2], label='Trajectory')
+ax1.set_xlabel('X (m)')
+ax1.set_ylabel('Y (m)')
+ax1.set_zlabel('Z (m)')
+ax1.set_title('Uniform Magnetic Field')
+ax1.legend()
+
+# Case 2: Combined fields
+ax2 = fig.add_subplot(132, projection='3d')
+ax2.plot(r2[:, 0], r2[:, 1], r2[:, 2], label='Trajectory')
+ax2.set_xlabel('X (m)')
+ax2.set_ylabel('Y (m)')
+ax2.set_zlabel('Z (m)')
+ax2.set_title('Combined E and B Fields')
+ax2.legend()
+
+# Case 3: Crossed fields
+ax3 = fig.add_subplot(133, projection='3d')
+ax3.plot(r3[:, 0], r3[:, 1], r3[:, 2], label='Trajectory')
+ax3.set_xlabel('X (m)')
+ax3.set_ylabel('Y (m)')
+ax3.set_zlabel('Z (m)')
+ax3.set_title('Crossed E and B Fields')
+ax3.legend()
+
+plt.tight_layout()
+plt.savefig('lorentz_force_trajectories.png')
+</code></pre>
+<p><img alt="alt text" src="../image.png"/></p>
+<h2 id="results-and-discussion">Results and Discussion</h2>
+<ul>
+<li><strong>Uniform Magnetic Field</strong>: The particle follows a helical trajectory due to the perpendicular component of its velocity. The Larmor radius is calculated as <span class="arithmatex">\( r_L = \frac{m v_\perp}{q B} \approx 5.7 \times 10^{-4} \, \text{m} \)</span>.</li>
+<li><strong>Combined Fields</strong>: The electric field introduces a linear acceleration along the z-axis, modifying the helical path.</li>
+<li><strong>Crossed Fields</strong>: The particle exhibits <span class="arithmatex">\(\mathbf{E} \times \mathbf{B}\)</span> drift, moving in the x-direction with velocity <span class="arithmatex">\( v_d = \frac{E_y}{B_z} = 10^4 \, \text{m/s} \)</span>.</li>
+</ul>
+<p><strong>Relation to Practical Systems</strong>:
+- <strong>Cyclotrons</strong>: The circular motion in a uniform magnetic field is exploited to accelerate particles.
+- <strong>Magnetic Traps</strong>: Helical motion in magnetic fields confines charged particles in fusion devices.
+- <strong>Mass Spectrometers</strong>: Trajectories in crossed fields enable separation based on <span class="arithmatex">\( q/m \)</span>.</p>
+<h2 id="suggestions-for-extensions">Suggestions for Extensions</h2>
+<ul>
+<li><strong>Non-Uniform Fields</strong>: Simulate motion in a magnetic bottle or quadrupole field.</li>
+<li><strong>Relativistic Effects</strong>: Incorporate relativistic corrections for high velocities.</li>
+<li><strong>Multiple Particles</strong>: Model interactions between particles in a plasma.</li>
+<li><strong>Interactive Interface</strong>: Use a library like Plotly for dynamic parameter adjustments.</li>
+</ul>
+<p>This simulation provides an intuitive understanding of the Lorentz force and its applications, bridging theoretical physics with practical engineering.</p>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
