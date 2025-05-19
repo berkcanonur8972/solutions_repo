@@ -76,7 +76,7 @@ plt.show()
 
 print(f"Estimated π: {pi_estimate}")
 ```
-![alt text](image-3.png)
+![alt text](indir2.gif)
 
 **Output**: The plot shows blue points inside the unit circle and red points outside, with the estimated π value displayed in the title.
 
