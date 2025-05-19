@@ -104,3 +104,5 @@ plt.show()
 This code generates a scatter plot of the \( T_{10} \) measurements with the mean and standard deviation indicated, helping to visualize the variability in timing as requested in the analysis section. You can replace the `T_10_measurements` list with your actual data in Colab.
 
 ![alt text](image.png)
+
+![alt text](image-1.png)
