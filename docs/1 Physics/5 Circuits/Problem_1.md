@@ -186,4 +186,8 @@ def apply_parallel_reduction(graph):
 - Depth-First Search: For identifying paths and cycles.
 - Kirchhoff’s Laws: For complex cyclic configurations.
  
+## My Colab
+
+[visit website](https://colab.research.google.com/drive/bc1qnx253th4lde8plfvt6zx03v45s62p6llylg63g?usp=sharing)
+
 ---
