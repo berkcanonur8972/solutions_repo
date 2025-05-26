@@ -79,7 +79,7 @@ function apply_parallel_reduction(graph):
  
 ---
  
-## Example Use Cases
+## Example Use 
  
 ### Example 1: Simple Series and Parallel
  
