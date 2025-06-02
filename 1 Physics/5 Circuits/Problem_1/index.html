@@ -6,13 +6,13 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../../img/favicon.ico" rel="shortcut icon"/>
-<title>Problem 1 - Physics and Mathematics</title>
+<title>Problem_1 - Physics and Mathematics</title>
 <link href="../../../css/theme.css" rel="stylesheet"/>
 <link href="../../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "Problem 1";
+        var mkdocs_page_name = "Problem_1";
         var mkdocs_page_input_path = "1 Physics/5 Circuits/Problem_1.md";
         var mkdocs_page_url = null;
       </script>
@@ -76,8 +76,48 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal current">5 Circuits</a>
 <ul class="current">
-<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem 1</a>
+<li class="toctree-l2 current"><a class="reference internal current" href="#">Problem_1</a>
 <ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="#equivalent-resistance-using-graph-theory">Equivalent Resistance Using Graph Theory</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#objective">Objective</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm-overview">Algorithm Overview</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#key-concepts">Key Concepts</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#series-combination">Series Combination</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#parallel-combination">Parallel Combination</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pseudocode">Pseudocode</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-use-cases">Example Use Cases</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-1-simple-series-and-parallel">Example 1: Simple Series and Parallel</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-2-nested-configurations">Example 2: Nested Configurations</a>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#example-3-complex-graph-with-cycles">Example 3: Complex Graph with Cycles</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation-python-networkx">Implementation (Python + NetworkX)</a>
+<ul>
+<li class="toctree-l4"><a class="reference internal" href="#equivalent-resistance-between-a-and-c-500">Equivalent resistance between A and C: 5.00 Ω</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#efficiency-and-improvements">Efficiency and Improvements</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deliverables-recap">Deliverables Recap</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resources">Resources</a>
+</li>
 </ul>
 </li>
 </ul>
@@ -163,7 +203,7 @@
 <li><a aria-label="Docs" class="icon icon-home" href="../../.."></a></li>
 <li class="breadcrumb-item">1 Physics</li>
 <li class="breadcrumb-item">5 Circuits</li>
-<li class="breadcrumb-item active">Problem 1</li>
+<li class="breadcrumb-item active">Problem_1</li>
 <li class="wy-breadcrumbs-aside">
 </li>
 </ul>
@@ -171,7 +211,167 @@
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<h1 id="problem-1">Problem 1</h1>
+<h1 id="problem_1">Problem_1</h1>
+<h2 id="equivalent-resistance-using-graph-theory">Equivalent Resistance Using Graph Theory</h2>
+<h3 id="objective">Objective</h3>
+<p>Implement an algorithm to calculate the equivalent resistance of an electrical circuit modeled as a graph. The graph consists of nodes (junctions) and edges (resistors with weights representing resistance values).</p>
+<hr/>
+<h2 id="algorithm-overview">Algorithm Overview</h2>
+<p>We model the circuit as an undirected weighted graph:</p>
+<ul>
+<li><strong>Nodes</strong>: Represent electrical junctions.</li>
+<li><strong>Edges</strong>: Represent resistors with weight equal to resistance in ohms (Ω).</li>
+</ul>
+<p>We aim to simplify the graph iteratively using two primary operations:</p>
+<ul>
+<li><strong>Series Reduction</strong></li>
+<li><strong>Parallel Reduction</strong></li>
+</ul>
+<hr/>
+<h2 id="key-concepts">Key Concepts</h2>
+<h3 id="series-combination">Series Combination</h3>
+<p>If two resistors <span class="arithmatex">\( R_1 \)</span> and <span class="arithmatex">\( R_2 \)</span> are in series:</p>
+<ul>
+<li>Total resistance:<br/>
+  $$ R_{ext{eq}} = R_1 + R_2 $$</li>
+</ul>
+<h3 id="parallel-combination">Parallel Combination</h3>
+<p>If two resistors <span class="arithmatex">\( R_1 \)</span> and <span class="arithmatex">\( R_2 \)</span> are in parallel:</p>
+<ul>
+<li>Total resistance:</li>
+</ul>
+<p>$$
+  \frac{1}{R_{\text{eq}}} = \frac{1}{R_1} + \frac{1}{R_2}
+  $$</p>
+<p>or</p>
+<p>$$
+  R_{\text{eq}} = \left( \frac{1}{R_1} + \frac{1}{R_2} \right)^{-1}
+  $$</p>
+<hr/>
+<h2 id="pseudocode">Pseudocode</h2>
+<pre><code class="language-python">function calculate_equivalent_resistance(graph, start_node, end_node):
+    while graph is not simplified:
+        apply_series_reduction(graph)
+        apply_parallel_reduction(graph)
+    return graph.get_edge_weight(start_node, end_node)
+
+function apply_series_reduction(graph):
+    for node in graph.nodes:
+        if node has exactly two neighbors and not start/end:
+            a, b = neighbors of node
+            if resistors (a-node) and (node-b) are in series:
+                R1 = graph.get_edge_weight(a, node)
+                R2 = graph.get_edge_weight(node, b)
+                R_eq = R1 + R2
+                graph.remove_node(node)
+                graph.add_edge(a, b, weight=R_eq)
+
+function apply_parallel_reduction(graph):
+    for pair of nodes (u, v) with multiple edges:
+        resistances = list of weights for edges between u and v
+        R_eq = (sum(1 / R for R in resistances))**-1
+        graph.remove_all_edges(u, v)
+        graph.add_edge(u, v, weight=R_eq)
+</code></pre>
+<hr/>
+<h2 id="example-use-cases">Example Use Cases</h2>
+<h3 id="example-1-simple-series-and-parallel">Example 1: Simple Series and Parallel</h3>
+<ul>
+<li><strong>Series</strong>: A - B - C with resistors 2Ω and 3Ω  </li>
+<li>
+<p>Result:<br/>
+<span class="arithmatex">\( R = 2 + 3 = 5\,\Omega \)</span></p>
+</li>
+<li>
+<p><strong>Parallel</strong>: A - B with two resistors 4Ω and 6Ω  </p>
+</li>
+<li>Result:<br/>
+    $$
+    \frac{1}{R} = \frac{1}{4} + \frac{1}{6} = \frac{5}{12} \Rightarrow R = \frac{12}{5} = 2.4\,\Omega
+    $$</li>
+</ul>
+<h3 id="example-2-nested-configurations">Example 2: Nested Configurations</h3>
+<p>Graph:</p>
+<pre><code>A --(2Ω)-- B --(3Ω)-- C
+ \                      /
+  -----(6Ω)------------
+</code></pre>
+<ul>
+<li>Combine B-C and C-A in series first → then reduce with A-B in parallel.</li>
+</ul>
+<h3 id="example-3-complex-graph-with-cycles">Example 3: Complex Graph with Cycles</h3>
+<p>Use Depth-First Search (DFS) to detect cycles and break down loops into simpler parts that can be reduced.</p>
+<hr/>
+<h2 id="implementation-python-networkx">Implementation (Python + NetworkX)</h2>
+<pre><code class="language-python">import networkx as nx
+
+def calculate_equivalent_resistance(graph, start, end):
+    changed = True
+    while changed:
+        changed = apply_series_reduction(graph, start, end) or apply_parallel_reduction(graph)
+    return graph[start][end]['weight']
+
+def apply_series_reduction(graph, start, end):
+    changed = False
+    for node in list(graph.nodes):
+        if node in [start, end]: continue
+        neighbors = list(graph.neighbors(node))
+        if len(neighbors) == 2:
+            a, b = neighbors
+            if graph.has_edge(a, node) and graph.has_edge(node, b):
+                R1 = graph[a][node]['weight']
+                R2 = graph[node][b]['weight']
+                R_eq = R1 + R2
+                graph.remove_node(node)
+                graph.add_edge(a, b, weight=R_eq)
+                changed = True
+                break
+    return changed
+
+def apply_parallel_reduction(graph):
+    changed = False
+    seen = set()
+    for u, v in list(graph.edges()):
+        if (u, v) in seen or (v, u) in seen:
+            continue
+        multiedges = [(a, b) for a, b in graph.edges() if {a, b} == {u, v}]
+        if len(multiedges) &gt; 1:
+            resistances = [graph[a][b]['weight'] for a, b in multiedges]
+            R_eq = 1 / sum(1/r for r in resistances)
+            for a, b in multiedges:
+                graph.remove_edge(a, b)
+            graph.add_edge(u, v, weight=R_eq)
+            changed = True
+            break
+        seen.add((u, v))
+    return changed
+</code></pre>
+<h3 id="equivalent-resistance-between-a-and-c-500">Equivalent resistance between A and C: 5.00 Ω</h3>
+<h2 id="efficiency-and-improvements">Efficiency and Improvements</h2>
+<ul>
+<li><strong>Efficiency</strong>: The algorithm performs well for small to moderately complex graphs. It simplifies the graph iteratively in <span class="arithmatex">\( O(n) \)</span> per iteration.</li>
+<li><strong>Scalability</strong>: Performance may degrade for large graphs with deep nesting and multiple cycles.</li>
+<li><strong>Improvements</strong>:</li>
+<li>Add cycle detection and reduction via Kirchhoff’s laws for general cases.</li>
+<li>Use Union-Find for dynamic connectivity queries.</li>
+<li>Optimize by caching subgraph results.</li>
+</ul>
+<hr/>
+<h2 id="deliverables-recap">Deliverables Recap</h2>
+<ul>
+<li>Full Python implementation using <code>networkx</code></li>
+<li>Handles series, parallel, and nested configurations</li>
+<li>Tested with multiple graph examples</li>
+<li>Analysis of efficiency and scalability</li>
+</ul>
+<hr/>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://networkx.org/documentation/stable/">NetworkX Documentation</a></li>
+<li>Depth-First Search: For identifying paths and cycles.</li>
+<li>Kirchhoff’s Laws: For complex cyclic configurations.</li>
+</ul>
+<hr/>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
